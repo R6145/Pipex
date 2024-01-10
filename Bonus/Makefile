@@ -6,13 +6,13 @@
 #    By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/03 18:19:18 by fmaqdasi          #+#    #+#              #
-#    Updated: 2024/01/10 17:45:47 by fmaqdasi         ###   ########.fr        #
+#    Updated: 2024/01/11 00:48:57 by fmaqdasi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        := pipex
 CC          := cc
-CFLAGS       := -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS       := -Wall -Wextra -Werror
 RM		    := rm -f
 INCLUDE = -Ift_printf/ -Ilibft/
 LIBFT_DIR = libft/
@@ -21,6 +21,8 @@ PRINTF = printf/libftprintf.a
 LIBFT = libft/libft.a
 
 SRCS        := 				pipex_util.c \
+							pipex_util2.c \
+							pipex_util3.c \
 
 
 SRCSM1       :=            pipex.c \

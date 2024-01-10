@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 17:24:42 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/01/10 18:14:58 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/01/11 00:11:45 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ char	*create_command(char *command, char *path)
 		free(full_command);
 		i++;
 	}
-	return (ft_printf("Error: Unknown Command\n"), free_split(args), NULL);
+	return (free_split(args), NULL);
 }
 
-void	excute_command(char **argv, char **envp, int x)
+int	excute_command(char **argv, char **envp, int x)
 {
 	char	**command;
 	char	*command1;
@@ -78,12 +78,15 @@ void	excute_command(char **argv, char **envp, int x)
 	if (command1 == NULL)
 	{
 		ft_putstr_fd("Error: Unknown Command\n", 2);
-		exit(127);
+		free_split(command);
+		free(command1);
+		return (-1);
 	}
 	if (execve(command1, command, envp) == -1)
 	{
-		ft_printf("Error: %s\n", strerror(errno));
+		ft_putstr_fd("Error: Command unable to excute\n", 2);
 		free_split(command);
 		free(command1);
 	}
+	return (-1);
 }
