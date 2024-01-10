@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 13:33:04 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/01/11 00:32:17 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/01/11 00:55:22 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PIPEX_H
 
 # include "libft/libft.h"
-# include "printf/ft_printf.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <stdlib.h>

@@ -6,7 +6,7 @@
 #    By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/03 18:19:18 by fmaqdasi          #+#    #+#              #
-#    Updated: 2024/01/11 00:48:57 by fmaqdasi         ###   ########.fr        #
+#    Updated: 2024/01/11 00:54:12 by fmaqdasi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,8 @@ NAME        := pipex
 CC          := cc
 CFLAGS       := -Wall -Wextra -Werror
 RM		    := rm -f
-INCLUDE = -Ift_printf/ -Ilibft/
+INCLUDE = -Ilibft/
 LIBFT_DIR = libft/
-PRINTF_DIR = printf/
-PRINTF = printf/libftprintf.a
 LIBFT = libft/libft.a
 
 SRCS        := 				pipex_util.c \
@@ -32,7 +30,7 @@ SRCSM1       :=            pipex.c \
 OBJS        := $(SRCS:.c=.o)
 OBJSNAME    := $(SRCSM1:.c=.o)
 
-LIBS = -L$(LIBFT_DIR) -L$(PRINTF_DIR) $(LIBFT) $(PRINTF)
+LIBS = -L$(LIBFT_DIR) $(LIBFT)
 
 .c.o:
 	@${CC} ${CFLAGS} $(INCLUDE) -c $< -o $@
@@ -46,24 +44,17 @@ $(LIBFT):
 			@echo "\033[0;32mLibft compiled successfully"
 
 
-$(PRINTF):
-			@make -C $(PRINTF_DIR) -s
-			@echo "\033[0;32mPrintf compiled successfully"
-
-
 all:		${NAME}
 
 clean:
 			@${RM} *.o
 			@make -C $(LIBFT_DIR) clean -s
-			@make -C $(PRINTF_DIR) clean -s
 			@echo "\033[0;31mObjects removed successfully"
 
 
 fclean:		clean
 			@${RM} ${NAME}
 			@make -C $(LIBFT_DIR) fclean -s
-			@make -C $(PRINTF_DIR) fclean -s
 			@echo "\033[0;31mAll created objects were removed successfully"
 
 re:			fclean all
