@@ -6,12 +6,11 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:41:46 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/01/11 18:55:04 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:08:29 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
 
 void	child(char **argv, char **envp, int **pipe_fd, int i)
 {
@@ -59,8 +58,11 @@ void	middle(char **argv, char **envp, int **pipe_fd, int i)
 
 	pid = forking(pipe_fd, argc_calc(argv));
 	if (pid == 0)
+	{
 		middle_child(argv, envp, pipe_fd, i);
-	waitpid(pid, NULL, 0);
+		waitpid(pid - 1, NULL, 0);
+	}
+	// waitpid(pid, NULL, 0);
 }
 
 void	parent(char **argv, char **envp, int **pipe_fd, int i)
@@ -112,3 +114,9 @@ int	main(int argc, char **argv, char **envp)
 	parent(argv, envp, fd, argc - 2);
 	return (0);
 }
+
+
+//fix 5 arg error
+//handle exit codes
+//here_doc
+//make sure "cat /dev/random" "head"
