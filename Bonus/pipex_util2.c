@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 00:34:39 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/01/11 00:35:42 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:09:45 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	close_pipe(int **fd, int argc)
 
 void	free_pipe(int **fd)
 {
-	int     i;
+	int	i;
 
 	i = 0;
 	while (fd[i] != NULL)

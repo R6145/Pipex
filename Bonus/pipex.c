@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:41:46 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/01/11 00:36:41 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:09:56 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	parent(char **argv, char **envp, int **pipe_fd, int i)
 {
 	int	fd;
 
-	fd = open(argv[i + 1], O_CREAT | O_RDWR | O_TRUNC, 0777);
+	fd = open(argv[i + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		ft_putstr_fd(strerror(errno), 2);
@@ -86,7 +86,6 @@ void	parent(char **argv, char **envp, int **pipe_fd, int i)
 	if (excute_command(argv, envp, i) == -1)
 		return (free_pipe(pipe_fd), exit(127));
 }
-
 
 int	main(int argc, char **argv, char **envp)
 {
