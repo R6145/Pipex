@@ -6,11 +6,12 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:41:46 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/01/11 16:09:56 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:55:04 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <stdio.h>
 
 void	child(char **argv, char **envp, int **pipe_fd, int i)
 {
@@ -59,6 +60,7 @@ void	middle(char **argv, char **envp, int **pipe_fd, int i)
 	pid = forking(pipe_fd, argc_calc(argv));
 	if (pid == 0)
 		middle_child(argv, envp, pipe_fd, i);
+	waitpid(pid, NULL, 0);
 }
 
 void	parent(char **argv, char **envp, int **pipe_fd, int i)
@@ -74,7 +76,7 @@ void	parent(char **argv, char **envp, int **pipe_fd, int i)
 			exit(3));
 	}
 	if (dup2(fd, STDOUT_FILENO) == -1 || dup2(pipe_fd[i - 3][0],
-		STDIN_FILENO) == -1)
+			STDIN_FILENO) == -1)
 	{
 		ft_putstr_fd("Dup Error\n", 2);
 		close(fd);
@@ -101,12 +103,7 @@ int	main(int argc, char **argv, char **envp)
 	pid = forking(fd, argc);
 	if (pid == 0)
 		child(argv, envp, fd, i - 1);
-	waitpid(0, &exitcode, 0);
-	if (exitcode != 0)
-	{
-		close_pipe(fd, argc);
-		return (free_pipe(fd), exit(3), 0);
-	}
+	waitpid(pid, &exitcode, 0);
 	while (i < argc - 2)
 	{
 		middle(argv, envp, fd, i);
