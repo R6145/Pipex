@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:41:46 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/01/13 22:40:55 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/01/13 23:32:33 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	child(char **argv, char **envp, int **pipe_fd, int i)
 			exit(3));
 	}
 	if (dup2(fd, STDIN_FILENO) == -1 || dup2(pipe_fd[i - 2][1],
-		STDOUT_FILENO) == -1)
+			STDOUT_FILENO) == -1)
 	{
 		ft_putstr_fd("Dup Error\n", 2);
 		close(fd);
@@ -62,9 +62,8 @@ void	middle(char **argv, char **envp, int **pipe_fd, int i)
 	pid = forking(pipe_fd, argc_calc(argv));
 	if (pid == 0)
 	{
+		wait(NULL);
 		middle_child(argv, envp, pipe_fd, i);
-		if (wait(NULL) == -1)
-			ft_putstr_fd("Error in the wait function\n", 2);
 	}
 }
 
@@ -72,8 +71,7 @@ void	parent(char **argv, char **envp, int **pipe_fd, int i)
 {
 	int	fd;
 
-	if ((ft_strncmp(argv[1], "here_doc", 9) == 0))
-		unlink("here_doc");
+	del_here_doc(argv);
 	fd = open(argv[i + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
 	{
@@ -83,7 +81,7 @@ void	parent(char **argv, char **envp, int **pipe_fd, int i)
 			exit(1));
 	}
 	if (dup2(fd, STDOUT_FILENO) == -1 || dup2(pipe_fd[i - 3][0],
-		STDIN_FILENO) == -1)
+			STDIN_FILENO) == -1)
 	{
 		ft_putstr_fd("Dup Error\n", 2);
 		close(fd);

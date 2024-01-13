@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 00:36:00 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/01/13 22:37:57 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/01/13 23:32:43 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,13 @@ void	here_doc(char **argv)
 			input = get_next_line(0);
 	}
 	close(fd);
+}
+
+void	del_here_doc(char **argv)
+{
+	if ((ft_strncmp(argv[1], "here_doc", 9) == 0))
+	{
+		wait(NULL);
+		unlink("here_doc");
+	}
 }
