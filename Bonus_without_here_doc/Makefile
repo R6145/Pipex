@@ -6,7 +6,7 @@
 #    By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/03 18:19:18 by fmaqdasi          #+#    #+#              #
-#    Updated: 2024/01/13 22:42:00 by fmaqdasi         ###   ########.fr        #
+#    Updated: 2024/01/11 00:54:12 by fmaqdasi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ LIBFT = libft/libft.a
 SRCS        := 				pipex_util.c \
 							pipex_util2.c \
 							pipex_util3.c \
-							get_next_line.c \
 
 
 SRCSM1       :=            pipex.c \
@@ -37,7 +36,7 @@ LIBS = -L$(LIBFT_DIR) $(LIBFT)
 	@${CC} ${CFLAGS} $(INCLUDE) -c $< -o $@
 	
     
-${NAME}:	${OBJS} ${OBJSNAME} $(LIBFT)
+${NAME}:	${OBJS} ${OBJSNAME} $(LIBFT) $(PRINTF) $(MINILIBX)
 			@${CC} ${CFLAGS} $(INCLUDES) ${OBJS} ${OBJSNAME} $(LIBS) -o ${NAME} 
 			@echo "\033[0;32mPIPEX compiled successfully"
 $(LIBFT):

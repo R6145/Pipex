@@ -6,14 +6,13 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 13:33:04 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/01/13 22:31:53 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:25:31 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "get_next_line.h"
 # include "libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -37,6 +36,5 @@ int		**fd_create(int argc);
 int		argc_calc(char **argv);
 void	free_pipe(int **fd);
 void	piping(int **x, int argc);
-void	here_doc(char **argv);
 
 #endif

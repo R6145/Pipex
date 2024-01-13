@@ -6,7 +6,7 @@
 /*   By: fmaqdasi <fmaqdasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:41:46 by fmaqdasi          #+#    #+#             */
-/*   Updated: 2024/01/13 22:40:55 by fmaqdasi         ###   ########.fr       */
+/*   Updated: 2024/01/13 19:56:27 by fmaqdasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@ void	child(char **argv, char **envp, int **pipe_fd, int i)
 {
 	int	fd;
 
-	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
-		fd = open("here_doc", O_CREAT | O_RDWR, 0644);
-	else
-		fd = open(argv[i - 1], O_RDONLY);
+	fd = open(argv[i - 1], O_RDONLY);
 	if (fd == -1)
 	{
 		ft_putstr_fd(strerror(errno), 2);
@@ -27,8 +24,8 @@ void	child(char **argv, char **envp, int **pipe_fd, int i)
 		return (close_pipe(pipe_fd, argc_calc(argv)), free_pipe(pipe_fd),
 			exit(3));
 	}
-	if (dup2(fd, STDIN_FILENO) == -1 || dup2(pipe_fd[i - 2][1],
-		STDOUT_FILENO) == -1)
+	if (dup2(fd, STDIN_FILENO) == -1 || dup2(pipe_fd[0][1], STDOUT_FILENO) ==
+		-1)
 	{
 		ft_putstr_fd("Dup Error\n", 2);
 		close(fd);
@@ -72,8 +69,6 @@ void	parent(char **argv, char **envp, int **pipe_fd, int i)
 {
 	int	fd;
 
-	if ((ft_strncmp(argv[1], "here_doc", 9) == 0))
-		unlink("here_doc");
 	fd = open(argv[i + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
 	{
@@ -104,14 +99,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < 5)
 		return (ft_putstr_fd("Wrong number of arguements\n", 2), exit(10), 0);
-	if ((ft_strncmp(argv[1], "here_doc", 9) == 0) && argc < 6)
-		return (ft_putstr_fd("Wrong number of arguements\n", 2), exit(10), 0);
 	i = 3;
-	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
-	{
-		here_doc(argv);
-		i++;
-	}
 	fd = fd_create(argc);
 	pid = forking(fd, argc);
 	if (pid == 0)
@@ -124,3 +112,8 @@ int	main(int argc, char **argv, char **envp)
 	parent(argv, envp, fd, argc - 2);
 	return (0);
 }
+
+// fix 5 arg error yep
+// handle exit codes i think
+// here_doc
+// make sure "cat /dev/random" "head" yep
